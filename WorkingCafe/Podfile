@@ -1,0 +1,40 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '12.0'
+
+target 'WorkingCafe' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for WorkingCafe
+  pod 'Alamofire'
+  pod 'Kingfisher'
+  pod 'SwiftyJSON'
+  pod 'SVProgressHUD'
+  
+  pod 'SwifterSwift'
+
+  pod 'SwiftyBeaver'
+  pod 'Fabric'
+  pod 'Crashlytics'
+
+  
+  # Recommended: Add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+  # The Fabric SDK is now deprecated and will continue reporting your app's crashes until November 15, 2020. On this date, the Fabric SDK and old versions of the Firebase Crashlytics SDK will stop sending crashes for your app. To continue getting crash reports in the Firebase console, make sure you upgrade to the Firebase Crashlytics SDK versions 17.0.0+ for Android, 4.0.0+ for iOS, and 6.15.0+ for Unity.
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  
+  pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
+
+  target 'WorkingCafeTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'WorkingCafeUITests' do
+    # Pods for testing
+  end
+
+end
