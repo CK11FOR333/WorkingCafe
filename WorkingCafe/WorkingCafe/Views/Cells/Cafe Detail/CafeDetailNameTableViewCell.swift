@@ -1,14 +1,14 @@
 //
-//  CafeDetailTableViewCell.swift
+//  CafeDetailNameTableViewCell.swift
 //  WorkingCafe
 //
-//  Created by ChristmasKay on 2020/12/8.
+//  Created by ChristmasKay on 2020/12/14.
 //  Copyright © 2020 ChristmasKay. All rights reserved.
 //
 
 import UIKit
 
-class CafeDetailTableViewCell: UITableViewCell {
+class CafeDetailNameTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -20,5 +20,5 @@ class CafeDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }
