@@ -160,6 +160,7 @@ final class LoginManager: NSObject {
                     // Do NOT use this value to authenticate with your backend server,
                     // if you have one. Use getTokenWithCompletion:completion: instead.
 //                    strongSelf.accountID = user.uid
+					
                     strongSelf.accountName = user.displayName ?? ""
                     strongSelf.accountEmail = user.email ?? ""
                     strongSelf.accountPhotoUrl = user.photoURL?.absoluteString ?? ""

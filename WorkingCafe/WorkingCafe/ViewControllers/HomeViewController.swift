@@ -12,32 +12,50 @@ import Firebase
 import FirebaseAuth
 
 class HomeViewController: UIViewController {
-
+    // MARK: - Property
+    
     var vcType: MyViewControllerType!
-
+    
     /// 預設台北
     var city = TaiwanCity.taipei
-
+    
     var cafes: [Cafe] = []
     var searchResult: [Cafe] = []
-
-    var refreshControl: UIRefreshControl!
-    var searchController: UISearchController!
-
+    
     var authHandle: AuthStateDidChangeListenerHandle?
     var isLogin: Bool = false
-
-    @IBOutlet weak var tableView: UITableView!
-
-    @IBOutlet weak var SortView: UIView!
-    @IBOutlet weak var SortImageView: UIImageView!
-    @IBOutlet weak var SortButton: UIButton!
     
+    // 用此變數表示現在是否為搜尋模式
+    var isSearching = false
+    
+    private let collectionView: UICollectionView = {
+        let viewLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(getCafes), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    // MARK: - IBOutlet
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var sortView: UIView!
+    @IBOutlet weak var sortImageView: UIImageView!
+    @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var filterImageView: UIImageView!
     @IBOutlet weak var filterButton: UIButton!
-    
+}
+
+// MARK: - IBAction
+
+extension HomeViewController {
     @IBAction func clickFilterButton(_ sender: UIButton) {
         showFilterActions()
     }
@@ -45,32 +63,51 @@ class HomeViewController: UIViewController {
     @IBAction func clickSortButton(_ sender: UIButton) {
         showSortActions()
     }
+}
 
-//    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+// MARK: - View LifeCycle
 
+extension HomeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSearchBar()
+        setupCollectionView()
+        setupLayouts()
         setupNavigationBar()
-        setupTableView()
         setupSortButton()
         getCafes()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         applyTheme()
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView.reloadData()
+    }
+}
 
+// MARK: - Helpers
+
+extension HomeViewController {
+    private func setupLayouts() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Layout constraints for `collectionView`
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+        
+        view.bringSubviewToFront(sortView)
+    }
+    
     func setupNavigationBar() {
         navigationItem.title = MyViewControllerType.viewController0.rawValue
-        //        navigationItem.title = city.description
-        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "navbar_icon_filter_default"), style: .plain, target: self, action: #selector(showFilterActions))
-
-        
-        //        navigationItem.searchController = searchController
-        
-    
         navigationController?.navigationBar.barStyle = UserDefaults.standard.bool(forKey: "kIsDarkTheme") ? .default : .black
         
         navigationController?.navigationBar.backgroundColor = Theme.current.navigationBar
@@ -84,101 +121,85 @@ class HomeViewController: UIViewController {
         
         locationLabel.text = city.description
         locationLabel.textColor = Theme.current.tint
-
+        
         filterImageView.image = UIImage(named: "navbar_icon_filter_default")?.withRenderingMode(.alwaysTemplate)
         filterImageView.tintColor = Theme.current.tint
     }
-
-    func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        
-        // SearchController
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.sizeToFit()
-        searchController.searchBar.placeholder = "搜尋店家名稱、地址"
-        searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-//        searchController.hidesNavigationBarDuringPresentation = true
-        definesPresentationContext = true
-
-        
-        tableView.tableHeaderView = searchController.searchBar
-
-        refreshControl = UIRefreshControl()
-
-        refreshControl.addTarget(self, action: #selector(getCafes), for: .valueChanged)
-        if #available(iOS 10.0, *) {
-            tableView.refreshControl = refreshControl
-        } else {
-            // Fallback on earlier versions
-            tableView.addSubview(refreshControl)
-        }
-
-        tableView.register(nibWithCellClass: CafeTableViewCell.self)
-    }
-
-    func setupSortButton() {
-        SortImageView.image = UIImage(named: "navbar_icon_sort_default")?.withRenderingMode(.alwaysTemplate)
-        SortImageView.tintColor = Theme.current.tint
-        SortView.backgroundColor = Theme.current.accent
-        SortView.layer.cornerRadius = 30
-        SortView.layer.shadowColor = UIColor.black.cgColor
-        SortView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        SortView.layer.shadowOpacity = 0.5
-        SortView.layer.masksToBounds = false
+    
+    func setupSearchBar() {
+        searchBar.placeholder = "搜尋店家名稱、地址"
+        searchBar.delegate = self
     }
     
+    func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(cellWithClass: CafeCollectionViewCell.self)
+        collectionView.refreshControl = refreshControl
+    }
+    
+    func setupSortButton() {
+        sortImageView.image = UIImage(named: "navbar_icon_sort_default")?.withRenderingMode(.alwaysTemplate)
+        sortImageView.tintColor = Theme.current.tint
+        sortView.backgroundColor = Theme.current.accent
+        sortView.layer.cornerRadius = 30
+        sortView.layer.shadowColor = UIColor.black.cgColor
+        sortView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        sortView.layer.shadowOpacity = 0.5
+        sortView.layer.masksToBounds = false
+    }
     
     fileprivate func applyTheme() {
         view.backgroundColor = Theme.current.tableViewCellBackgorund
-
+        
         setupNavigationBar()
-
-        searchController.searchBar.tintColor = Theme.current.tint
-        searchController.searchBar.barTintColor = Theme.current.accent
-        searchController.searchBar.searchTextField.textColor = Theme.current.tableViewCellDarkText
-        searchController.searchBar.searchTextField.setPlaceHolderTextColor(Theme.current.tableViewCellSelectedBackground)
-                
+        
+        searchBar.tintColor = Theme.current.tint
+        searchBar.barTintColor = Theme.current.accent
+        searchBar.searchTextField.textColor = Theme.current.tableViewCellDarkText
+        searchBar.searchTextField.setPlaceHolderTextColor(Theme.current.tableViewCellSelectedBackground)
+        
         refreshControl.tintColor = Theme.current.accent
         refreshControl.backgroundColor = Theme.current.tableViewBackground
         
-        tableView.backgroundColor = Theme.current.tableViewBackground
-        tableView.reloadData()
+        collectionView.backgroundColor = Theme.current.tableViewBackground
+        collectionView.reloadData()
         
-        SortImageView.tintColor = Theme.current.tint
-
+        sortImageView.tintColor = Theme.current.tint
+        
         self.tabBarController?.tabBar.barTintColor = Theme.current.tabBar
         self.tabBarController?.tabBar.tintColor = Theme.current.tint
         self.tabBarController?.tabBar.unselectedItemTintColor = Theme.current.tabBarUnSelected
     }
-
+    
     @objc func getCafes() {
         requestManager.getCafe(with: city.rawValue) { [weak self] (cafes) in
             guard let strongSelf = self else { return }
             strongSelf.cafes = cafes
             if #available(iOS 10.0, *) {
-                strongSelf.tableView.refreshControl?.endRefreshing()
+                strongSelf.collectionView.refreshControl?.endRefreshing()
             } else {
                 // Fallback on earlier versions
                 strongSelf.refreshControl.endRefreshing()
             }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3, execute: {
-                strongSelf.tableView.reloadData()
-                strongSelf.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                strongSelf.collectionView.reloadData()
+                strongSelf.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 self?.applyTheme()
             })
         }
     }
-
+    
     func filterContentForSearchText(searchText: String?) {
         guard let searchText = searchText, !searchText.isEmpty else {
             searchResult.removeAll()
+            isSearching = false
             return
         }
-
+        
+        isSearching = true
+        
         searchResult = cafes.filter({ (cafe) -> Bool in
             if cafe.name.lowercased().range(of: searchText.lowercased()) != nil {
                 return true
@@ -189,7 +210,7 @@ class HomeViewController: UIViewController {
             return false
         })
     }
-
+    
     @objc func showFilterActions() {
         let alertController = UIAlertController.init(title: "選擇城市", message: nil, preferredStyle: .actionSheet)
         alertController.addAction(title: TaiwanCity.keelung.description, style: .default, isEnabled: true) { (action) in
@@ -267,7 +288,7 @@ class HomeViewController: UIViewController {
         alertController.addAction(title: "取消", style: .cancel, isEnabled: true) { (action) in
             //
         }
-
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             //            alertController.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
             alertController.popoverPresentationController?.permittedArrowDirections = .up
@@ -278,7 +299,7 @@ class HomeViewController: UIViewController {
         
         alertController.show()
     }
-
+    
     @objc func showSortActions() {
         let alertController = UIAlertController.init(title: "依種類排序", message: "由大到小", preferredStyle: .actionSheet)
         alertController.addAction(title: "WIFI穩定", style: .default, isEnabled: true) { (action) in
@@ -302,49 +323,49 @@ class HomeViewController: UIViewController {
         alertController.addAction(title: "取消", style: .cancel, isEnabled: true) { (action) in
             //
         }
-
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.permittedArrowDirections = .down
-            alertController.popoverPresentationController?.sourceView = self.SortView
-            alertController.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.SortView.frame.width, height: self.SortView.frame.height)
+            alertController.popoverPresentationController?.sourceView = self.sortView
+            alertController.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.sortView.frame.width, height: self.sortView.frame.height)
         }
-
+        
         alertController.show()
     }
-
+    
     func sortCafes(with type: CafeRatingType) {
-        if searchController.isActive {
+        if isSearching {
             switch type {
             case .wifi:
                 searchResult.sort { (a, b) -> Bool in
                     return a.wifi > b.wifi
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .seat:
                 searchResult.sort { (a, b) -> Bool in
                     return a.seat > b.seat
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .quiet:
                 searchResult.sort { (a, b) -> Bool in
                     return a.quiet > b.quiet
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .cheap:
                 searchResult.sort { (a, b) -> Bool in
                     return a.cheap > b.cheap
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .music:
                 searchResult.sort { (a, b) -> Bool in
                     return a.music > b.music
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .tasty:
                 searchResult.sort { (a, b) -> Bool in
                     return a.tasty > b.tasty
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             }
         } else {
             switch type {
@@ -352,127 +373,145 @@ class HomeViewController: UIViewController {
                 cafes.sort { (a, b) -> Bool in
                     return a.wifi > b.wifi
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .seat:
                 cafes.sort { (a, b) -> Bool in
                     return a.seat > b.seat
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .quiet:
                 cafes.sort { (a, b) -> Bool in
                     return a.quiet > b.quiet
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .cheap:
                 cafes.sort { (a, b) -> Bool in
                     return a.cheap > b.cheap
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .music:
                 cafes.sort { (a, b) -> Bool in
                     return a.music > b.music
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             case .tasty:
                 cafes.sort { (a, b) -> Bool in
                     return a.tasty > b.tasty
                 }
-                tableView.reloadData()
+                collectionView.reloadData()
             }
         }
     }
-
 }
 
-extension HomeViewController: UITableViewDataSource {
+// MARK: - UICollectionViewDataSource
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive {
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if isSearching {
             return searchResult.count
         } else {
             return cafes.count
         }
     }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CafeTableViewCell", for: indexPath) as! CafeTableViewCell
-        cell.selectionStyle = .none
-
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withClass: CafeCollectionViewCell.self, for: indexPath)
         cell.delegate = self
-
         cell.indexPath = indexPath
-
-        if searchController.isActive {
+        
+        if isSearching {
             let cafe = searchResult[indexPath.row]
             cell.cafe = cafe
         } else {
             let cafe = cafes[indexPath.row]
             cell.cafe = cafe
         }
-
+        
         cell.applyTheme()
-
+        
         return cell
     }
-
 }
 
-extension HomeViewController: UITableViewDelegate {
+// MARK: - UICollectionViewDelegate
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if searchController.isActive {
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isSearching {
             let cafe = searchResult[indexPath.row]
-            if let url = URL(string: cafe.url) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    // Fallback on earlier versions
-                    UIApplication.shared.openURL(url)
-                }
-            }
+            
+            let cafeDetailVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "CafeDetailViewController") as! CafeDetailViewController
+            cafeDetailVC.cafe = cafe
+            cafeDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(cafeDetailVC)
         } else {
             let cafe = cafes[indexPath.row]
-            if let url = URL(string: cafe.url) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    // Fallback on earlier versions
-                    UIApplication.shared.openURL(url)
-                }
-            }
+            
+            let cafeDetailVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "CafeDetailViewController") as! CafeDetailViewController
+            cafeDetailVC.cafe = cafe
+            cafeDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(cafeDetailVC)
         }
     }
-
 }
 
-extension HomeViewController: CafeTableViewCellDelegate {
+// MARK: - UICollectionViewDelegateFlowLayout
 
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let width = (collectionView.frame.size.width - 20 - 10) / 2
+            return CGSize(width: width, height: 120)
+            
+        } else {
+            let width = (collectionView.frame.size.width - 20)
+            return CGSize(width: width, height: 120)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+}
+
+// MARK: - CafeCollectionViewCellDelegate
+
+extension HomeViewController: CafeCollectionViewCellDelegate {
     func didClickCollectButton(_ sender: UIButton, at indexPath: IndexPath) {
         var cafe: Cafe
-        if searchController.isActive {
+        if isSearching {
             cafe = searchResult[indexPath.row]
         } else {
             cafe = cafes[indexPath.row]
         }
-
+        
         if loginManager.isLogin {
-//            var isCollected = realmManager.isCafeCollected(cafe)
+            //            var isCollected = realmManager.isCafeCollected(cafe)
             var isCollected = false
             favoriteManager.isCafeCollected(cafe) { (collected) in
                 isCollected = collected
-
+                
                 if isCollected {
                     //                realmManager.removeFavoriteCafe(cafe)
-
+                    
                     favoriteManager.removeFavoriteCafe(cafe)
                 } else {
                     //                realmManager.addFavoriteCafe(cafe)
-
+                    
                     favoriteManager.addFavoriteCafe(cafe)
                 }
-
+                
                 isCollected = !isCollected
-
+                
                 sender.isSelected = isCollected
                 if isCollected {
                     sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -481,7 +520,7 @@ extension HomeViewController: CafeTableViewCellDelegate {
                     }, completion: nil)
                 }
             }
-
+            
         } else {
             appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
                 let loginVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
@@ -489,32 +528,25 @@ extension HomeViewController: CafeTableViewCellDelegate {
             }
         }
     }
-
 }
 
-extension HomeViewController: UISearchResultsUpdating {
-
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchText = searchController.searchBar.text
-        filterContentForSearchText(searchText: searchText)
-        tableView.reloadData()
-    }
-
-}
+// MARK: - UISearchBarDelegate
 
 extension HomeViewController: UISearchBarDelegate {
-
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterContentForSearchText(searchText: searchText)
+        collectionView.reloadData()
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-
+    
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        self.headerView.isHidden = true
         return true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        self.headerView.isHidden = false
+        searchBar.resignFirstResponder()
     }
-
 }

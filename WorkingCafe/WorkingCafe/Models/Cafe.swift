@@ -22,6 +22,7 @@ struct Cafe {
     var latitude: String
     var limited_time: String
     var standing_desk: String
+	var open_time: String
 
     var wifi: Int
     var seat: Int
@@ -45,6 +46,7 @@ struct Cafe {
             "latitude": latitude,
             "limited_time": limited_time,
             "standing_desk": standing_desk,
+			"open_time": open_time,
 
             "wifi": wifi,
             "seat": seat,
@@ -67,6 +69,7 @@ struct Cafe {
          latitude: String,
          limited_time: String,
          standing_desk: String,
+		 open_time: String,
          wifi: Int,
          seat: Int,
          quiet: Int,
@@ -86,6 +89,7 @@ struct Cafe {
         self.latitude = latitude
         self.limited_time = limited_time
         self.standing_desk = standing_desk
+		self.open_time = open_time
         self.wifi = wifi
         self.seat = seat
         self.quiet = quiet
@@ -112,6 +116,7 @@ extension Cafe: DocumentSerializable {
             let latitude = dictionary["latitude"] as? String,
             let limited_time = dictionary["limited_time"] as? String,
             let standing_desk = dictionary["standing_desk"] as? String,
+			let open_time = dictionary["open_time"] as? String,
 
             let wifi = dictionary["wifi"] as? Int,
             let seat = dictionary["seat"] as? Int,
@@ -135,6 +140,7 @@ extension Cafe: DocumentSerializable {
                   latitude: latitude,
                   limited_time: limited_time,
                   standing_desk: standing_desk,
+				  open_time: open_time,
                   wifi: wifi,
                   seat: seat,
                   quiet: quiet,

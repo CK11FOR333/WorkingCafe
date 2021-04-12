@@ -118,7 +118,7 @@ class MapViewController: UIViewController {
     }
 
     func setupMapView() {
-//        mapView.delegate = self
+        mapView.delegate = self
         mapView.mapType = .standard
         mapView.showsUserLocation = true
         mapView.isZoomEnabled = true
@@ -168,6 +168,16 @@ class MapViewController: UIViewController {
         DispatchQueue.global().async {
             let tempAnno: [MKPointAnnotation] = self.annotations
             self.annotations.removeAll()
+			
+//			for (index, cafe) in self.cafes.enumerated() {
+//				let location = CLLocation(latitude: Double(cafe.latitude)!, longitude: Double(cafe.longitude)!)
+//				let annotation = MKPointAnnotation()
+//				annotation.title = cafe.name
+//				annotation.subtitle = cafe.address
+//				annotation.coordinate = location.coordinate
+//				annotation.tag =
+//				self.annotations.append(annotation)
+//			}
 
             for cafe in self.cafes {
                 let location = CLLocation(latitude: Double(cafe.latitude)!, longitude: Double(cafe.longitude)!)
@@ -181,9 +191,9 @@ class MapViewController: UIViewController {
             DispatchQueue.main.async {
                 self.mapView.removeAnnotations(tempAnno)
                 self.mapView.showAnnotations(self.annotations, animated: true)
-                //        if annotations.count > 0 {
-                //            mapView.selectAnnotation(annotations.last!, animated: true)
-                //        }
+//				if self.annotations.count > 0 {
+//					self.mapView.selectAnnotation(self.annotations[2], animated: true)
+//				}
             }
         }
     }
@@ -312,4 +322,36 @@ extension MapViewController: CLLocationManagerDelegate {
         mapView.setRegion(currentRegion, animated: true)
     }
     
+}
+
+extension MapViewController: MKMapViewDelegate {
+//	func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//		let identifier = "MyPin"
+//		if annotation.isKind(of: MKUserLocation.self) { return nil }
+//		// 如果可以重複使用 annotation
+//		var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+//		if annotationView == nil {
+//			annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//			annotationView?.canShowCallout = true
+//		}
+//
+//		let leftIconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 53, height: 53))
+//		leftIconView.image = UIImage(named: "White Logo Square")
+//		annotationView?.leftCalloutAccessoryView = leftIconView
+//
+//		return annotationView
+//	}
+	
+	func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+		log.info("😡")
+		let annotation = view.annotation
+		for cafe in cafes {
+			if annotation?.title == cafe.name {
+				let cafeDetailVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "CafeDetailViewController") as! CafeDetailViewController
+				cafeDetailVC.cafe = cafe
+				cafeDetailVC.hidesBottomBarWhenPushed = true
+				self.navigationController?.pushViewController(cafeDetailVC)
+			}
+		}
+	}
 }

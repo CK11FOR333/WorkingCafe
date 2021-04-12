@@ -20,7 +20,6 @@ protocol ThemeProtocol {
     var accent: UIColor { get }
     var tint: UIColor { get }
     var shadow: UIColor { get }
-
     var fullStar: UIColor { get }
     var cornerButton: UIColor { get }
 }

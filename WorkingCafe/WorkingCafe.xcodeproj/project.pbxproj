@@ -33,14 +33,22 @@
 		6A16C0E824C4A2A700674857 /* LightTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16C0E424C4A2A600674857 /* LightTheme.swift */; };
 		6A16C0E924C4A2A700674857 /* DarkTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16C0E524C4A2A600674857 /* DarkTheme.swift */; };
 		6A16C0EA24C4A2A700674857 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A16C0E624C4A2A600674857 /* Theme.swift */; };
-		6A438E0024E46862006361EE /* CoffeeMapCup.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6A438DFF24E46861006361EE /* CoffeeMapCup.jpg */; };
-		6A57B63224DDC3CD00761E89 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A57B63124DDC3CD00761E89 /* GoogleService-Info.plist */; };
+		6A60E97F2601248B00146529 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A60E9812601248B00146529 /* InfoPlist.strings */; };
+		6A60E989260124AC00146529 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A60E98B260124AC00146529 /* Localizable.strings */; };
 		6A7B0E9524C55047000BAABE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A7B0E9424C55047000BAABE /* MapKit.framework */; };
 		6A7B0E9724C55055000BAABE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A7B0E9624C55055000BAABE /* QuartzCore.framework */; };
 		6A98916724E4412800F4C71A /* TaiwanCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A98916624E4412800F4C71A /* TaiwanCity.swift */; };
 		6A98916924E4415400F4C71A /* CafeRatingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A98916824E4415400F4C71A /* CafeRatingType.swift */; };
 		6A98916B24E4490300F4C71A /* MyViewControllerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A98916A24E4490300F4C71A /* MyViewControllerType.swift */; };
+		6A995B0F25877E7100FCC025 /* CafeDetailNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A995B0E25877E7100FCC025 /* CafeDetailNameTableViewCell.swift */; };
+		6A995B1425877E8000FCC025 /* CafeDetailAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A995B1325877E8000FCC025 /* CafeDetailAddressTableViewCell.swift */; };
+		6A995B1925877E9500FCC025 /* CafeDetailStarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A995B1825877E9500FCC025 /* CafeDetailStarTableViewCell.swift */; };
+		6A995B1E25877EBF00FCC025 /* CafeDetailContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A995B1D25877EBF00FCC025 /* CafeDetailContentTableViewCell.swift */; };
+		6AAA957A257FE7A6006228DE /* CafeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAA9579257FE7A6006228DE /* CafeDetailViewController.swift */; };
+		6AAA95F52580635A006228DE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AAA95F42580635A006228DE /* GoogleService-Info.plist */; };
 		6AACA7CB24E4618B000AB086 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AACA7CA24E4618B000AB086 /* LaunchScreen.storyboard */; };
+		6AB7651E2585884200124E51 /* 咖啡田.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AB7651D2585884200124E51 /* 咖啡田.png */; };
+		6AB7658E2586B61A00124E51 /* CafeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB7658D2586B61A00124E51 /* CafeCollectionViewCell.swift */; };
 		6ACF583424C4A39400BC2559 /* UIWindow+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF583224C4A39300BC2559 /* UIWindow+Extension.swift */; };
 		6ACF583524C4A39400BC2559 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACF583324C4A39400BC2559 /* UIViewController+Extension.swift */; };
 		6AF3D6B424C4C0F800623ED9 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF3D6B324C4C0F800623ED9 /* SwitchTableViewCell.swift */; };
@@ -73,7 +81,6 @@
 		673BC4C64A78B39C45C25F15 /* Pods-WorkingCafeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WorkingCafeTests.release.xcconfig"; path = "Target Support Files/Pods-WorkingCafeTests/Pods-WorkingCafeTests.release.xcconfig"; sourceTree = "<group>"; };
 		6A16C07E24C4A04100674857 /* WorkingCafe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkingCafe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A16C08124C4A04100674857 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6A16C08F24C4A04300674857 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A16C09424C4A04300674857 /* WorkingCafeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorkingCafeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A16C09824C4A04300674857 /* WorkingCafeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingCafeTests.swift; sourceTree = "<group>"; };
 		6A16C09A24C4A04300674857 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,15 +109,26 @@
 		6A16C0E424C4A2A600674857 /* LightTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightTheme.swift; sourceTree = "<group>"; };
 		6A16C0E524C4A2A600674857 /* DarkTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkTheme.swift; sourceTree = "<group>"; };
 		6A16C0E624C4A2A600674857 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		6A438DFF24E46861006361EE /* CoffeeMapCup.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CoffeeMapCup.jpg; sourceTree = "<group>"; };
-		6A57B63124DDC3CD00761E89 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A57B63324DDD71B00761E89 /* WorkingCafe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WorkingCafe.entitlements; sourceTree = "<group>"; };
+		6A60E9672601202C00146529 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A60E9802601248B00146529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6A60E9852601249300146529 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		6A60E98A260124AC00146529 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A60E98F260124B500146529 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6A7B0E9424C55047000BAABE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6A7B0E9624C55055000BAABE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6A98916624E4412800F4C71A /* TaiwanCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaiwanCity.swift; sourceTree = "<group>"; };
 		6A98916824E4415400F4C71A /* CafeRatingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeRatingType.swift; sourceTree = "<group>"; };
 		6A98916A24E4490300F4C71A /* MyViewControllerType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewControllerType.swift; sourceTree = "<group>"; };
+		6A995B0E25877E7100FCC025 /* CafeDetailNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailNameTableViewCell.swift; sourceTree = "<group>"; };
+		6A995B1325877E8000FCC025 /* CafeDetailAddressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailAddressTableViewCell.swift; sourceTree = "<group>"; };
+		6A995B1825877E9500FCC025 /* CafeDetailStarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailStarTableViewCell.swift; sourceTree = "<group>"; };
+		6A995B1D25877EBF00FCC025 /* CafeDetailContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailContentTableViewCell.swift; sourceTree = "<group>"; };
+		6AAA9579257FE7A6006228DE /* CafeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeDetailViewController.swift; sourceTree = "<group>"; };
+		6AAA95F42580635A006228DE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6AACA7CA24E4618B000AB086 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6AB7651D2585884200124E51 /* 咖啡田.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "咖啡田.png"; sourceTree = "<group>"; };
+		6AB7658D2586B61A00124E51 /* CafeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafeCollectionViewCell.swift; sourceTree = "<group>"; };
 		6ACF583224C4A39300BC2559 /* UIWindow+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Extension.swift"; sourceTree = "<group>"; };
 		6ACF583324C4A39400BC2559 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		6AF3D6B324C4C0F800623ED9 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -225,13 +243,15 @@
 		6A16C0B124C4A0B500674857 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6A438DFF24E46861006361EE /* CoffeeMapCup.jpg */,
+				6AB7651D2585884200124E51 /* 咖啡田.png */,
 				6AACA7CA24E4618B000AB086 /* LaunchScreen.storyboard */,
 				6A16C0B424C4A11000674857 /* Colors.xcassets */,
 				6A16C0B224C4A0FC00674857 /* ImageAssets.xcassets */,
-				6A16C08F24C4A04300674857 /* Info.plist */,
+				6A60E9672601202C00146529 /* Info.plist */,
 				6AF3D6B524C4C32200623ED9 /* Keys.plist */,
-				6A57B63124DDC3CD00761E89 /* GoogleService-Info.plist */,
+				6AAA95F42580635A006228DE /* GoogleService-Info.plist */,
+				6A60E98B260124AC00146529 /* Localizable.strings */,
+				6A60E9812601248B00146529 /* InfoPlist.strings */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -242,6 +262,7 @@
 				6A16C0B924C4A14600674857 /* Main.storyboard */,
 				6A16C0BA24C4A14600674857 /* MainTabBarController.swift */,
 				6A16C0BE24C4A15200674857 /* HomeViewController.swift */,
+				6AAA9579257FE7A6006228DE /* CafeDetailViewController.swift */,
 				6A16C0C024C4A17500674857 /* MapViewController.swift */,
 				6A16C0C324C4A17500674857 /* SettingsViewController.swift */,
 				6A16C0C224C4A17500674857 /* MyCollectedViewController.swift */,
@@ -256,6 +277,8 @@
 				6A16C0CA24C4A1D300674857 /* CafeTableViewCell.swift */,
 				6A16C0C924C4A1D300674857 /* CafeTableViewCell.xib */,
 				6AF3D6B324C4C0F800623ED9 /* SwitchTableViewCell.swift */,
+				6AB7658D2586B61A00124E51 /* CafeCollectionViewCell.swift */,
+				6A995B2225877ECD00FCC025 /* Cafe Detail */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -302,6 +325,17 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
+		6A995B2225877ECD00FCC025 /* Cafe Detail */ = {
+			isa = PBXGroup;
+			children = (
+				6A995B0E25877E7100FCC025 /* CafeDetailNameTableViewCell.swift */,
+				6A995B1325877E8000FCC025 /* CafeDetailAddressTableViewCell.swift */,
+				6A995B1825877E9500FCC025 /* CafeDetailStarTableViewCell.swift */,
+				6A995B1D25877EBF00FCC025 /* CafeDetailContentTableViewCell.swift */,
+			);
+			path = "Cafe Detail";
+			sourceTree = "<group>";
+		};
 		6ACF583624C4A39E00BC2559 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +370,7 @@
 				6A16C07C24C4A04100674857 /* Resources */,
 				81D10B7052D5C568772C550B /* [CP] Embed Pods Frameworks */,
 				745EC48D4508737004B6060F /* [CP] Copy Pods Resources */,
+				6AAA9587258056B4006228DE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -393,7 +428,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = ChristmasKay;
 				TargetAttributes = {
 					6A16C07D24C4A04100674857 = {
@@ -416,6 +451,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = 6A16C07524C4A04100674857;
 			productRefGroup = 6A16C07F24C4A04100674857 /* Products */;
@@ -436,12 +472,14 @@
 			files = (
 				6A16C0B524C4A11000674857 /* Colors.xcassets in Resources */,
 				6A16C0B324C4A0FC00674857 /* ImageAssets.xcassets in Resources */,
+				6AB7651E2585884200124E51 /* 咖啡田.png in Resources */,
+				6AAA95F52580635A006228DE /* GoogleService-Info.plist in Resources */,
+				6A60E989260124AC00146529 /* Localizable.strings in Resources */,
 				6A16C0BC24C4A14700674857 /* Main.storyboard in Resources */,
 				6AF3D6B624C4C32200623ED9 /* Keys.plist in Resources */,
 				6A16C0CB24C4A1D300674857 /* CafeTableViewCell.xib in Resources */,
-				6A438E0024E46862006361EE /* CoffeeMapCup.jpg in Resources */,
-				6A57B63224DDC3CD00761E89 /* GoogleService-Info.plist in Resources */,
 				6AACA7CB24E4618B000AB086 /* LaunchScreen.storyboard in Resources */,
+				6A60E97F2601248B00146529 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +521,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		6AAA9587258056B4006228DE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/Supporting Files/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		745EC48D4508737004B6060F /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -604,6 +661,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A16C0DC24C4A26600674857 /* RequestManager.swift in Sources */,
+				6A995B0F25877E7100FCC025 /* CafeDetailNameTableViewCell.swift in Sources */,
 				6A16C0D424C4A22200674857 /* User.swift in Sources */,
 				6A16C0C524C4A17500674857 /* LoginViewController.swift in Sources */,
 				6A16C0E724C4A2A700674857 /* ThemeProtocol.swift in Sources */,
@@ -611,8 +669,12 @@
 				6A98916924E4415400F4C71A /* CafeRatingType.swift in Sources */,
 				6A16C0BF24C4A15200674857 /* HomeViewController.swift in Sources */,
 				6A16C0DF24C4A26600674857 /* LoginManager.swift in Sources */,
+				6A995B1425877E8000FCC025 /* CafeDetailAddressTableViewCell.swift in Sources */,
 				6A98916B24E4490300F4C71A /* MyViewControllerType.swift in Sources */,
 				6ACF583524C4A39400BC2559 /* UIViewController+Extension.swift in Sources */,
+				6AB7658E2586B61A00124E51 /* CafeCollectionViewCell.swift in Sources */,
+				6A995B1925877E9500FCC025 /* CafeDetailStarTableViewCell.swift in Sources */,
+				6A995B1E25877EBF00FCC025 /* CafeDetailContentTableViewCell.swift in Sources */,
 				6A16C0C424C4A17500674857 /* MapViewController.swift in Sources */,
 				6A16C08224C4A04100674857 /* AppDelegate.swift in Sources */,
 				6A16C0B724C4A12800674857 /* Constants.swift in Sources */,
@@ -628,6 +690,7 @@
 				6A16C0DB24C4A26600674857 /* LocalCollection.swift in Sources */,
 				6A16C0E924C4A2A700674857 /* DarkTheme.swift in Sources */,
 				6A16C0C724C4A17500674857 /* SettingsViewController.swift in Sources */,
+				6AAA957A257FE7A6006228DE /* CafeDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,11 +725,33 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		6A60E9812601248B00146529 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A60E9802601248B00146529 /* en */,
+				6A60E9852601249300146529 /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6A60E98B260124AC00146529 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A60E98A260124AC00146529 /* en */,
+				6A60E98F260124B500146529 /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		6A16C0A624C4A04300674857 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -689,6 +774,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -713,7 +799,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -727,6 +813,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -749,6 +836,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -767,7 +855,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -784,8 +872,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WorkingCafe/WorkingCafe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 64PCUZ4FJ2;
 				INFOPLIST_FILE = "$(SRCROOT)/WorkingCafe/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -804,8 +895,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WorkingCafe/WorkingCafe.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 64PCUZ4FJ2;
 				INFOPLIST_FILE = "$(SRCROOT)/WorkingCafe/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

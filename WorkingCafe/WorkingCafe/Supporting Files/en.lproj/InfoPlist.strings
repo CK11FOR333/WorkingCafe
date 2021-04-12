@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  WorkingCafe
+
+  Created by ChristmasKay on 2021/3/17.
+  Copyright © 2021 ChristmasKay. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "CoffeeMap";
+"NSLocationWhenInUseUsageDescription" = "Allow CoffeeMap to turn on GPS and access this device's current location?";
+ 

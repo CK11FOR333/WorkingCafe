@@ -9,6 +9,16 @@
 import UIKit
 
 class CafeDetailNameTableViewCell: UITableViewCell {
+	
+	var cafe: Cafe? {
+		didSet {
+			if let cafe = cafe {                
+				nameLabel.text = cafe.name
+			}
+		}
+	}
+	
+	@IBOutlet weak var nameLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,4 +31,11 @@ class CafeDetailNameTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+extension CafeDetailNameTableViewCell {
+	func applyTheme() {
+		self.backgroundColor = Theme.current.tableViewBackground
+		nameLabel.textColor = Theme.current.tableViewCellLightText
+	}
 }

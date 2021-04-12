@@ -8,9 +8,8 @@
 
 import UIKit
 import MessageUI
-import Crashlytics
 import SwifterSwift
-
+import SafariServices
 
 class SettingsViewController: UIViewController {
 
@@ -39,16 +38,12 @@ class SettingsViewController: UIViewController {
         }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         applyTheme()
     }
 
-    func setupNavigationBar() {
+	private func setupNavigationBar() {
         navigationItem.title = MyViewControllerType.viewController2.rawValue
         
         navigationController?.navigationBar.barStyle = UserDefaults.standard.bool(forKey: "kIsDarkTheme") ? .default : .black
@@ -60,14 +55,14 @@ class SettingsViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Theme.current.tint]
     }
 
-    func setupTableView() {
+	private func setupTableView() {
         tableView.dataSource = self
         tableView.delegate = self
 
         selectedBackgroundView.backgroundColor = Theme.current.tableViewCellSelectedBackground
     }
 
-    fileprivate func applyTheme() {
+    private func applyTheme() {
         view.backgroundColor = Theme.current.tableViewBackground
         tableView.backgroundColor = Theme.current.tableViewBackground
         tableView.reloadData()
@@ -229,6 +224,7 @@ extension SettingsViewController: UITableViewDelegate {
         if indexPath.section == 0 {
             if loginManager.isLogin {
                 let myCollectedVC = UIStoryboard.main?.instantiateViewController(withIdentifier: "MyCollectedViewController") as! MyCollectedViewController
+//				myCollectedVC.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(myCollectedVC)
             } else {
                 appDelegate.presentAlertView("登入以使用收藏功能", message: nil) {
@@ -242,27 +238,36 @@ extension SettingsViewController: UITableViewDelegate {
                 presentContactUsPage()
             case 2:
                 if let url = URL(string: "https://ka-pei-tian.flycricket.io/privacy.html") {
-                    if #available(iOS 10, *) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    } else {
-                        UIApplication.shared.openURL(url)
-                    }
+					let safari = SFSafariViewController(url: url)
+					safari.delegate = self
+					present(safari, animated: true, completion: nil)
+//                    if #available(iOS 10, *) {
+//                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//                    } else {
+//                        UIApplication.shared.openURL(url)
+//                    }
                 }
             case 3:
                 if let url = URL(string: "https://cafenomad.tw") {
-                    if #available(iOS 10, *) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    } else {
-                        UIApplication.shared.openURL(url)
-                    }
+					let safari = SFSafariViewController(url: url)
+					safari.delegate = self
+					present(safari, animated: true, completion: nil)
+//                    if #available(iOS 10, *) {
+//                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//                    } else {
+//                        UIApplication.shared.openURL(url)
+//                    }
                 }
             case 4:
-                if let url = URL(string: "https://www.facebook.com/%E5%92%96%E5%95%A1%E7%94%B0-CoffeeMap-224168719004516?view_public_for=224168719004516") {
-                    if #available(iOS 10, *) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    } else {
-                        UIApplication.shared.openURL(url)
-                    }
+                if let url = URL(string: "https://www.facebook.com/%E5%92%96%E5%95%A1%E7%94%B0-104521754860817") {
+					let safari = SFSafariViewController(url: url)
+					safari.delegate = self
+					present(safari, animated: true, completion: nil)
+//                    if #available(iOS 10, *) {
+//                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//                    } else {
+//                        UIApplication.shared.openURL(url)
+//                    }
                 }
             default:
                 break
@@ -329,4 +334,10 @@ extension SettingsViewController: LoginManagerDelegate {
         //
     }
 
+}
+
+extension SettingsViewController: SFSafariViewControllerDelegate {
+	func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+		//
+	}
 }

@@ -25,9 +25,7 @@ final class FavoriteManager {
     func addFavoriteCafe(_ cafe: Cafe) {
         guard let currentUser = Auth.auth().currentUser else { return }
 
-
-
-        let docRef = Firestore.firestore().collection("FavoriteCafes").document("\(cafe.name)")
+        let docRef = Firestore.firestore().collection("FavoriteCafes").document("\(cafe.id)")
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -48,8 +46,14 @@ final class FavoriteManager {
 
     func removeFavoriteCafe(_ cafe: Cafe) {
         guard let currentUser = Auth.auth().currentUser else { return }
+        
+        // 替換掉反斜線，以避免造成Firestore奇數層錯誤
+        var name = cafe.name
+        if name.hasPrefix("/") {
+            name = name.replacingOccurrences(of: "/", with: " ")
+        }
 
-        let docRef = Firestore.firestore().collection("FavoriteCafes").document("\(cafe.name)")
+        let docRef = Firestore.firestore().collection("FavoriteCafes").document("\(cafe.id)")
 
         docRef.updateData(["users":FieldValue.arrayRemove(["\(currentUser.uid)"])])
     }
@@ -60,7 +64,7 @@ final class FavoriteManager {
             return
         }
 
-        let docRef = Firestore.firestore().collection("FavoriteCafes").document("\(cafe.name)")
+        let docRef = Firestore.firestore().collection("FavoriteCafes").document("\(cafe.id)")
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {

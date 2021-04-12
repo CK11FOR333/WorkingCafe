@@ -143,6 +143,7 @@ extension RequestManager {
                                 latitude: key["latitude"].stringValue,
                                 limited_time: key["limited_time"].stringValue,
                                 standing_desk: key["standing_desk"].stringValue,
+								open_time: key["open_time"].stringValue,
                                 wifi: key["wifi"].intValue,
                                 seat: key["seat"].intValue,
                                 quiet: key["quiet"].intValue,

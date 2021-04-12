@@ -18,13 +18,17 @@
 #define FIRESTORE_CORE_SRC_CORE_FIRESTORE_CLIENT_H_
 
 #include <memory>
+#include <string>
 #include <vector>
 
 #include "Firestore/core/src/api/api_fwd.h"
+#include "Firestore/core/src/api/load_bundle_task.h"
+#include "Firestore/core/src/bundle/bundle_serializer.h"
 #include "Firestore/core/src/core/core_fwd.h"
 #include "Firestore/core/src/core/database_info.h"
 #include "Firestore/core/src/model/database_id.h"
 #include "Firestore/core/src/util/async_queue.h"
+#include "Firestore/core/src/util/byte_stream.h"
 #include "Firestore/core/src/util/delayed_constructor.h"
 #include "Firestore/core/src/util/empty.h"
 #include "Firestore/core/src/util/executor.h"
@@ -52,6 +56,7 @@ class Mutation;
 
 namespace remote {
 class ConnectivityMonitor;
+class FirebaseMetadataProvider;
 class RemoteStore;
 }  // namespace remote
 
@@ -77,7 +82,9 @@ class FirestoreClient : public std::enable_shared_from_this<FirestoreClient> {
       const api::Settings& settings,
       std::shared_ptr<auth::CredentialsProvider> credentials_provider,
       std::shared_ptr<util::Executor> user_executor,
-      std::shared_ptr<util::AsyncQueue> worker_queue);
+      std::shared_ptr<util::AsyncQueue> worker_queue,
+      std::unique_ptr<remote::FirebaseMetadataProvider>
+          firebase_metadata_provider);
 
   ~FirestoreClient();
 
@@ -169,6 +176,11 @@ class FirestoreClient : public std::enable_shared_from_this<FirestoreClient> {
     return user_executor_;
   }
 
+  void LoadBundle(std::unique_ptr<util::ByteStream> bundle_data,
+                  std::shared_ptr<api::LoadBundleTask> result_task);
+
+  void GetNamedQuery(const std::string& name, api::QueryCallback callback);
+
   /** For usage in this class and testing only. */
   const std::shared_ptr<util::AsyncQueue>& worker_queue() const {
     return worker_queue_;
@@ -180,7 +192,9 @@ class FirestoreClient : public std::enable_shared_from_this<FirestoreClient> {
       const DatabaseInfo& database_info,
       std::shared_ptr<auth::CredentialsProvider> credentials_provider,
       std::shared_ptr<util::Executor> user_executor,
-      std::shared_ptr<util::AsyncQueue> worker_queue);
+      std::shared_ptr<util::AsyncQueue> worker_queue,
+      std::unique_ptr<remote::FirebaseMetadataProvider>
+          firebase_metadata_provider);
 
   void Initialize(const auth::User& user, const api::Settings& settings);
 
@@ -201,6 +215,8 @@ class FirestoreClient : public std::enable_shared_from_this<FirestoreClient> {
    */
   std::shared_ptr<util::AsyncQueue> worker_queue_;
   std::shared_ptr<util::Executor> user_executor_;
+
+  std::unique_ptr<remote::FirebaseMetadataProvider> firebase_metadata_provider_;
 
   std::unique_ptr<local::Persistence> persistence_;
   std::unique_ptr<local::LocalStore> local_store_;

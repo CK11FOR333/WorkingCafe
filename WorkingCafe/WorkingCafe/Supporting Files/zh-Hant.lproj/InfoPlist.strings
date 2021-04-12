@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  WorkingCafe
+
+  Created by ChristmasKay on 2021/3/17.
+  Copyright © 2021 ChristmasKay. All rights reserved.
+*/
+
+"CFBundleDisplayName" = "咖啡田";
+"NSLocationWhenInUseUsageDescription" = "定位按鈕需要開啟GPS權限來獲得當前位置";

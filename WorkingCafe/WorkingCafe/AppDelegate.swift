@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
 import SwiftyBeaver
 import Firebase
 import FirebaseAuth
@@ -20,44 +18,27 @@ let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-//        setupFabric()
         setupSwiftyBeaver()
         setupFirebase()
         setupGoogleSignIn()
         applyTheme()
         return true
     }
-
 }
 
 extension AppDelegate {
-
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
         -> Bool {
             return GIDSignIn.sharedInstance().handle(url)
     }
-
 }
 
 extension AppDelegate {
-
-    func setupFabric() {
-        Fabric.with([Crashlytics.self])
-        // TODO: Move this to where you establish a user session
-        self.logUser()
-    }
-
     func logUser() {
-        // TODO: Use the current user's information
-        // You can call any combination of these three methods
-//        Crashlytics.sharedInstance().setUserEmail("user@fabric.io")
-//        Crashlytics.sharedInstance().setUserIdentifier("12345")
-//        Crashlytics.sharedInstance().setUserName("Test User")
+		Crashlytics.crashlytics().setUserID("123456789")
     }
 
     func setupSwiftyBeaver() {
